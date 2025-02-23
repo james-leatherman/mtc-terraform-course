@@ -4,14 +4,26 @@ resource "github_repository" "mtc-repo" {
   description = "${each.value.lang} code for MTC"
   visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
-  /*   provisioner "local-exec" {
-    command = "gh repo view ${self.name} --web"
-  } */
+  dynamic "pages" {
+    for_each = each.value.pages ? [1] : []
+    content {
+      source {
+        branch = "main"
+        path   = "/"
+      }
+    }
+  }
+
+  # provisioner "local-exec" {
+  #   command = "gh repo view ${self.name} --web"
+  # }
+
   provisioner "local-exec" {
     command = "rm -rf ${self.name}"
     when    = destroy
   }
 }
+
 
 resource "terraform_data" "repo-clone" {
   for_each   = var.repos

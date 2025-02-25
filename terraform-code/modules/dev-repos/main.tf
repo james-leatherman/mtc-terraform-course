@@ -24,7 +24,6 @@ resource "github_repository" "mtc-repo" {
   }
 }
 
-
 resource "terraform_data" "repo-clone" {
   for_each   = var.repos
   depends_on = [github_repository_file.main, github_repository_file.readme]
@@ -51,9 +50,9 @@ resource "github_repository_file" "readme" {
                         EOT */
   overwrite_on_create = true
   /*   lifecycle {
-    ignore_changes = [
-      content,
-    ]
+        ignore_changes = [
+        content,
+        ]
   } */
 }
 

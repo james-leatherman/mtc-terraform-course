@@ -1,5 +1,5 @@
 # Cloned directories
-**/.mtc*
+mtc-*/
 
 # Local .terraform directories
 **/.terraform/*

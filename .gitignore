@@ -1,6 +1,10 @@
 # Cloned directories
 mtc-*/
 
+# Private keys
+*.pem
+*.key
+
 # Local .terraform directories
 **/.terraform/*
 

@@ -8,7 +8,3 @@ output "clone-urls" {
   description = "Repo names and clone urls"
   sensitive   = false
 }
-
-output "varsource" {
-  value = var.varsource
-}

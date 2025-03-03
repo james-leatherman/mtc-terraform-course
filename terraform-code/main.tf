@@ -3,17 +3,17 @@ locals {
     infra = {
       lang     = "terraform"
       filename = "main.tf"
-      pages    = false
+      pages    = true
     },
     backend = {
       lang     = "python"
       filename = "main.py"
-      pages    = false
+      pages    = true
     },
     frontend = {
-      lang     = "html"
-      filename = "index.html"
-      pages    = false
+      lang     = "javascript"
+      filename = "index.js"
+      pages    = true
     }
   }
   environments = toset(["dev", "prod"])
@@ -35,6 +35,7 @@ module "deploy-keys" {
 
 module "info-page" {
   source = "./modules/info-page"
+  repos = { for k,v in module.repos["prod"].clone-urls : k => v }
 }
 
 output "repo-info" {

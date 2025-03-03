@@ -16,8 +16,3 @@ variable "repos" {
     error_message = "Too many repos and there's still not enough MCs"
   }
 }
-
-variable "varsource" {
-  type = string
-  default = "variables.tf"
-}

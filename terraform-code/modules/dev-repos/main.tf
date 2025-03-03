@@ -2,7 +2,7 @@ resource "github_repository" "mtc-repo" {
   for_each    = var.repos
   name        = "mtc-${each.key}-${var.env}"
   description = "${each.value.lang} code for MTC"
-  visibility  = var.env == "dev" ? "private" : "private"
+  visibility  = var.env == "dev" ? "public" : "public"
   auto_init   = true
   dynamic "pages" {
     for_each = each.value.pages ? [1] : []

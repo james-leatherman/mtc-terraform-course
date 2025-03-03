@@ -27,5 +27,10 @@ resource "github_repository_file" "this" {
     avatar = data.github_user.current.avatar_url,
     name   = data.github_user.current.name,
     date   = formatdate("YYYY", timestamp())
+    repos  = var.repos
   })
+}
+
+variable "repos" {
+  type = map(any)
 }

@@ -1,7 +1,7 @@
 # Cloned directories
 mtc-*/
 
-# Private keys
+# Key files
 *.pem
 *.key
 

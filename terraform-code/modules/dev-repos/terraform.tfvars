@@ -12,8 +12,8 @@ repos = {
     pages    = true
   },
   frontend = {
-    lang     = "html"
-    filename = "index.html"
-    pages    = false
+    lang     = "javascript"
+    filename = "index.js"
+    pages    = true
   }
 }

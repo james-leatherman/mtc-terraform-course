@@ -10,9 +10,10 @@ Hey there! I'm ${name}, and these are some of my projects.
 
 | Project Name   | Github Page   | Repo Link   |
 | -------------- | ------------- | ----------- |
-%{for repo_key, repo_value in repos ~}
+%{ for repo_key, repo_value in repos ~}
 | ${repo_key}   | ${repo_value.pages-url != "no page" ? "[Page](${repo_value.pages-url})" : "No Page"}   | [Github](${repo_value.http-clone-url})   |
 %{ endfor ~}
+
 ---
 
 @ ${date} ${name}

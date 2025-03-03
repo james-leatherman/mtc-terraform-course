@@ -56,11 +56,6 @@ resource "github_repository_file" "readme" {
   } */
 }
 
-# moved {
-#   from = github_repository_file.index
-#   to   = github_repository_file.main
-# }
-
 resource "github_repository_file" "main" {
   for_each            = var.repos
   repository          = github_repository.mtc-repo[each.key].name

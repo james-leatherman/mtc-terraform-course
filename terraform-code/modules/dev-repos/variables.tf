@@ -16,3 +16,9 @@ variable "repos" {
     error_message = "Too many repos and there's still not enough MCs"
   }
 }
+
+variable "run_provisioners" {
+  type        = bool
+  description = "Choice to run provisioners"
+  default     = false
+}

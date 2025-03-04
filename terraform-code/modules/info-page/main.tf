@@ -9,9 +9,11 @@ resource "github_repository" "this" {
       path   = "/"
     }
   }
+
   provisioner "local-exec" {
-    command = "gh repo view ${self.name} --web"
+    command = var.run_provisioners ? "gh repo view ${self.name} --web" : "echo 'Skip repo view'"
   }
+
 }
 
 data "github_user" "current" {

@@ -2,10 +2,10 @@ resource "github_repository" "mtc-repo" {
   for_each    = var.repos
   name        = "mtc-${each.key}-${var.env}"
   description = "${each.value.lang} code for MTC"
-  visibility  = var.env == "dev" ? "public" : "public"
+  visibility  = var.env == "dev" ? "private" : "public"
   auto_init   = true
   dynamic "pages" {
-    for_each = each.value.pages ? [1] : []
+    for_each = each.value.pages && var.env != "dev" ? [1] : []
     content {
       source {
         branch = "main"
@@ -14,9 +14,9 @@ resource "github_repository" "mtc-repo" {
     }
   }
 
-  # provisioner "local-exec" {
-  #   command = "gh repo view ${self.name} --web"
-  # }
+  provisioner "local-exec" {
+    command = var.run_provisioners ? "gh repo view ${self.name} --web" : "echo 'Skip repo view'"
+  }
 
   provisioner "local-exec" {
     command = "rm -rf ${self.name}"
@@ -29,7 +29,7 @@ resource "terraform_data" "repo-clone" {
   depends_on = [github_repository_file.main, github_repository_file.readme]
 
   provisioner "local-exec" {
-    command = "gh repo clone ${github_repository.mtc-repo[each.key].name}"
+    command = var.run_provisioners ? "gh repo clone ${github_repository.mtc-repo[each.key].name}" : "echo 'Skip repo clone'"
   }
 }
 
@@ -44,16 +44,7 @@ resource "github_repository_file" "readme" {
     repo   = each.key,
     author = data.github_user.current.name
   })
-  /*   content             = <<-EOT
-                        # This is the ${var.env} ${each.value.lang} repo for ${each.key} developers.
-                        Last modified: ${data.github_user.current.name}
-                        EOT */
   overwrite_on_create = true
-  /*   lifecycle {
-        ignore_changes = [
-        content,
-        ]
-  } */
 }
 
 resource "github_repository_file" "main" {

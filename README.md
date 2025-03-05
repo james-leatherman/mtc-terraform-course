@@ -45,7 +45,7 @@ This module creates repositories for different environments and languages.
   - `repos`: Map of repository configurations.
 
 - **Outputs:**
-  - `clone-urls`: Map of repository names and their clone URLs.
+  - `clone_urls`: Map of repository names and their clone URLs.
 
 ### `deploy-keys`
 

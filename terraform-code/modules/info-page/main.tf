@@ -1,3 +1,13 @@
+data "terraform_remote_state" "repos" {
+  backend = "remote"
+  config = {
+    organization = "james-leatherman"
+    workspaces = {
+      name = "mtc-repos"
+    }
+  }
+}
+
 resource "github_repository" "this" {
   name        = "mtc-info-page"
   description = "Repository info for MTC"
@@ -31,6 +41,6 @@ resource "github_repository_file" "this" {
     avatar = data.github_user.current.avatar_url,
     name   = data.github_user.current.name,
     date   = time_static.this.year,
-    repos  = var.repos
+    repos  = local.repos
   })
 }

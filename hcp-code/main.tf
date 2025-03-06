@@ -46,25 +46,6 @@ resource "tfe_oauth_client" "this" {
   organization_scoped = true
 }
 
-resource "tfe_variable" "mtc_repos_github_token" {
-  key          = "GITHUB_TOKEN"
-  value        = var.github_token
-  category     = "env"
-  sensitive    = true
-  workspace_id = tfe_workspace.mtc_repos.id
-}
-
-resource "tfe_variable_set" "this" {
-  name        = "Github Token Set"
-  description = "Github resources for Deployments"
-  project_id  = tfe_project.this.id
-}
-
-resource "tfe_project_variable_set" "this" {
-  project_id      = tfe_project.this.id
-  variable_set_id = tfe_variable_set.this.id
-}
-
 # Create Project
 
 resource "tfe_project" "this" {
@@ -84,7 +65,7 @@ resource "tfe_project_oauth_client" "this" {
 resource "tfe_workspace" "mtc_repos" {
   name         = "mtc-repos"
   organization = data.tfe_organization.this.name
-  project_id   = tfe_project.this.project_id
+  project_id   = tfe_project.this.id
 
   working_directory     = "terraform-code/modules/repos"
   auto_apply            = true
@@ -132,9 +113,9 @@ resource "tfe_workspace" "mtc_info_page" {
 
   vcs_repo {
     identifier         = "james-leatherman/mtc-terraform-course"
-    oauth_token_id     = tfe_oauth_client.this.oauth_token_id
     branch             = "cicd"
     ingress_submodules = false
+    oauth_token_id     = tfe_oauth_client.this.oauth_token_id
   }
 }
 
@@ -150,14 +131,14 @@ resource "tfe_variable" "mtc_repos_github_token" {
   value           = var.github_token
   category        = "env"
   sensitive       = true
-  variable_set_id = tfe_project.this.id
+  variable_set_id = tfe_variable_set.this.id
 }
 
 resource "tfe_variable_set" "this" {
-  name            = "Github Token Set"
-  description     = "Github resources for Deployments"
-  project_id      = tfe_project.this.id
-  variable_set_id = tfe_variable_set.this.id
+  name              = "Github Token Set"
+  description       = "Github resources for Deployments"
+  organization      = data.tfe_organization.this.name
+  parent_project_id = tfe_project.this.id
 }
 
 resource "tfe_project_variable_set" "this" {
@@ -167,7 +148,7 @@ resource "tfe_project_variable_set" "this" {
 
 # Configure run trigger
 
-resource "tfe_run_trigger" "this" {
+resource "tfe_run_trigger" "mtc_repos_to_mtc_info_page" {
   sourceable_id = tfe_workspace.mtc_repos.id
   workspace_id  = tfe_workspace.mtc_info_page.id
 }

@@ -49,7 +49,7 @@ resource "tfe_oauth_client" "this" {
 # Create Project
 
 resource "tfe_project" "this" {
-  name         = "mtc-project"
+  name         = "mtc-portfolio-2"
   organization = data.tfe_organization.this.name
 }
 
@@ -63,7 +63,7 @@ resource "tfe_project_oauth_client" "this" {
 # Create Workspaces
 
 resource "tfe_workspace" "mtc_repos" {
-  name         = "mtc-repos"
+  name         = "mtc-repos-2"
   organization = data.tfe_organization.this.name
   project_id   = tfe_project.this.id
 
@@ -100,7 +100,7 @@ resource "tfe_workspace_run" "mtc_info_page" {
 }
 
 resource "tfe_workspace" "mtc_info_page" {
-  name         = "mtc-info-page"
+  name         = "mtc-info-page-2"
   depends_on   = [tfe_workspace.mtc_repos]
   organization = data.tfe_organization.this.name
   project_id   = tfe_project.this.id

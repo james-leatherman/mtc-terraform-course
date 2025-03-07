@@ -27,11 +27,9 @@ resource "github_repository" "this" {
   provisioner "local-exec" {
     command = var.run_provisioners ? "gh repo view ${self.name} --web" : "echo 'Skip repo view'"
   }
-
 }
 
 data "github_user" "current" {
-  username = ""
 }
 
 resource "time_static" "this" {}

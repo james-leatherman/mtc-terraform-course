@@ -105,10 +105,10 @@ resource "tfe_workspace" "mtc_info_page" {
   organization = data.tfe_organization.this.name
   project_id   = tfe_project.this.id
 
-  working_directory      = "terraform-code/modules/info_page"
+  working_directory      = "terraform-code/modules/info-page"
   auto_apply             = false
   file_triggers_enabled  = true
-  trigger_patterns       = ["**/info_page/**/*"]
+  trigger_patterns       = ["**/info-page/**/*"]
   auto_apply_run_trigger = true
 
   vcs_repo {

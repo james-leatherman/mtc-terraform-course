@@ -2,6 +2,8 @@
 
 This is a Terraform project that manages Github repos and associated readme files and Github pages. I created this during my [More than Certified](https://morethancertified.com/course/mtc-terraform) training, and it helped me understand the possibilities in control flow and templating in Terraform. It also allowed me to generate a Github pages landing where I could have my profile and a listing of the Github repos that were created with this project.
 
+Version 1 of the project used a local state file, which is only recommended for local testing. Version 2 includes the abiltity to create [HCP Terraform](https://app.terraform.io/) resources and manage the state there.
+
 ## Project Structure
 
 ```plaintext
@@ -30,6 +32,11 @@ This is a Terraform project that manages Github repos and associated readme file
 │   │       ├── variables.tf
 │   ├── providers.tf
 │   ├── templates/
+├── hcp-code/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── datasources.tf
 ├── terraform.tfstate
 ```
 

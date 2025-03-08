@@ -38,7 +38,7 @@ resource "github_repository_file" "readme" {
   repository = github_repository.mtc-repo[each.key].name
   branch     = "main"
   file       = "README.md"
-  content = templatefile("templates/readme.tftpl", {
+  content = templatefile("${path.module}/templates/readme.tftpl", {
     env    = var.env,
     lang   = each.value.lang,
     repo   = each.key,

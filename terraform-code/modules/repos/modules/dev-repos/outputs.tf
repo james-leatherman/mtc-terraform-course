@@ -1,4 +1,4 @@
-output "clone-urls" {
+output "clone_urls" {
   value = { for i in github_repository.mtc-repo : i.name => {
     ssh-clone-url  = i.ssh_clone_url,
     http-clone-url = i.http_clone_url,

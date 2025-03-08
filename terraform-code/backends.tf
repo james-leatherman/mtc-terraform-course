@@ -1,5 +1,16 @@
+# terraform {
+#   backend "local" {
+#     path = "../state/terraform.tfstate"
+#   }
+# }
+
 terraform {
-  backend "local" {
-    path = "../state/terraform.tfstate"
+  cloud {
+
+    organization = "james-leatherman"
+
+    workspaces {
+      name = "dev"
+    }
   }
 }
